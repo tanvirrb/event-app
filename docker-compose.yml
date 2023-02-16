@@ -1,0 +1,37 @@
+version: '3.1'
+services:
+  event-app:
+    build:
+      context: .
+    env_file:
+      - ./.env
+    volumes:
+      - ./src:/usr/src/app/src
+    ports:
+      - ${PORT}:${PORT}
+    restart: unless-stopped
+    depends_on:
+        - db-server
+    healthcheck:
+      test: [ "CMD","nc","-z","localhost","3000" ]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+    command: npm run dev
+
+  db-server:
+    image: mysql:8.0
+    env_file:
+      - ./.env
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    volumes:
+        - database_vol:/var/lib/mysql
+    restart: always
+volumes:
+    database_vol:
