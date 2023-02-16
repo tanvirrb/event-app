@@ -1,0 +1,38 @@
+{
+  "name": "event-app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "docker:rebuild": "docker-compose build --no-cache",
+    "docker:up": "docker-compose up",
+    "docker:down": "docker-compose down --remove-orphans",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\"",
+    "test": "mocha \"./test/**/*.test.js\" --timeout 15000 --exit",
+    "test:docker:rebuild": "docker-compose --file docker-compose.test.yml build --no-cache",
+    "test:docker": "docker-compose --file docker-compose.test.yml up --abort-on-container-exit --exit-code-from event-app",
+    "posttest:docker": "docker-compose --file docker-compose.test.yml down --volumes --remove-orphans"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "^4.3.4",
+    "dotenv": "^16.0.3",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1",
+    "mysql2": "^3.1.2",
+    "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "faker": "^5.5.3",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.4"
+  }
+}
