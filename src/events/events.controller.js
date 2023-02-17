@@ -10,6 +10,22 @@ module.exports.createEvent = async (req, res) => {
   }
 };
 
+module.exports.getEvents = async (req, res) => {
+  try {
+    const { pageNumber, pageSize } = req.query;
+    const [events, totalEvents] = await Promise.allSettled([
+      eventsService.getEvents(pageNumber, pageSize),
+      eventsService.getEventCount(),
+    ]);
+    res
+      .status(200)
+      .json({ pageNumber, pageSize, totalEvents: totalEvents.value, data: events.value });
+  } catch (err) {
+    console.error('Controller getEvents err', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 module.exports.getEventById = async (req, res) => {
   try {
     const event = await eventsService.getEventById(req.params.id);

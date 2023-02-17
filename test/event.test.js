@@ -37,6 +37,24 @@ describe('Event test suite', () => {
     assert.exists(event.date);
   });
 
+  it('should get all events with pagination', async () => {
+    const eventData = {
+      name: faker.lorem.words(),
+      location: faker.address.city(),
+      date: faker.date.future(),
+    };
+    for (let i = 0; i < 10; i++) {
+      await createEventForTest(eventData);
+    }
+
+    const [err, res] = await _p(chai.request(server).get('/v1/events?pageNumber=1&pageSize=5'));
+    if (err) console.error('Get all test err', err);
+    const events = res.body.data;
+
+    assert.equal(res.status, 200);
+    assert.equal(events.length, 5);
+  });
+
   it('should get an event with id', async () => {
     const eventData = {
       name: faker.lorem.words(),
