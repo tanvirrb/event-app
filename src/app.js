@@ -2,7 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 require('dotenv').config({ path: `${__dirname}/../.env` });
 const swaggerUi = require('swagger-ui-express');
-const swaggerApiDoc = require('./swagger.json');
+const swaggerApiDoc = require('./config/swagger.json');
 const { sequelize } = require('./models');
 sequelize.sync({ alter: true });
 const config = require('./config/environments');
