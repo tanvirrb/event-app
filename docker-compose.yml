@@ -3,6 +3,7 @@ services:
   event-app:
     build:
       context: .
+      dockerfile: Dockerfile
     env_file:
       - ./.env
     volumes:
@@ -11,7 +12,8 @@ services:
       - ${PORT}:${PORT}
     restart: unless-stopped
     depends_on:
-        - db-server
+        db-server:
+          condition: service_healthy
     healthcheck:
       test: [ "CMD","nc","-z","localhost","3000" ]
       interval: 20s
@@ -21,17 +23,25 @@ services:
 
   db-server:
     image: mysql:8.0
+    ports:
+      - ${MYSQL_PORT}:${MYSQL_PORT}
     env_file:
       - ./.env
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - ${MYSQL_PORT}:${MYSQL_PORT}
+    restart: unless-stopped
+    command: --init-file /data/application/init.sql
     volumes:
-        - database_vol:/var/lib/mysql
-    restart: always
+      - ./scripts/init.sql:/data/application/init.sql
+      - database_vol:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
 volumes:
     database_vol:
