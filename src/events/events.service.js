@@ -8,6 +8,12 @@ module.exports = {
     return newEvent;
   },
 
+  getEventById: async (id) => {
+    const [err, event] = await _p(Event.findOne({ where: { id } }));
+    if (err) console.error('Service getEventById err', err);
+    return event;
+  },
+
   deleteEvents: async () => {
     return Event.destroy({
       where: {},
