@@ -25,7 +25,8 @@
     "lodash": "^4.17.21",
     "morgan": "~1.9.1",
     "mysql2": "^3.1.2",
-    "sequelize": "^6.28.0"
+    "sequelize": "^6.28.0",
+    "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
     "chai": "^4.3.7",

@@ -1,0 +1,199 @@
+{
+  "swagger":"2.0",
+  "info":{
+    "version":"1.0.0",
+    "title":"Event API",
+    "description":"REST API for managing events"
+  },
+  "host":"localhost:3000",
+  "basePath":"/v1",
+  "schemes":[
+    "http"
+  ],
+  "paths":{
+    "/events":{
+      "post":{
+        "tags":[
+          "Events"
+        ],
+        "summary":"Create a new event",
+        "description":"",
+        "parameters":[
+          {
+            "name":"event",
+            "in":"body",
+            "description":"Event object",
+            "required":true,
+            "schema":{
+              "$ref":"#/definitions/Event"
+            }
+          }
+        ],
+        "responses":{
+          "201":{
+            "description":"Event created successfully",
+            "schema":{
+              "$ref":"#/definitions/Event"
+            }
+          },
+          "400":{
+            "description":"Invalid input"
+          }
+        }
+      },
+      "get":{
+        "tags":[
+          "Events"
+        ],
+        "summary":"Get a list of events",
+        "description":"",
+        "parameters":[
+          {
+            "name":"pageNumber",
+            "in":"query",
+            "description":"Page number",
+            "required":true,
+            "type":"integer"
+          },
+          {
+            "name":"pageSize",
+            "in":"query",
+            "description":"Page size",
+            "required":true,
+            "type":"integer"
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"OK",
+            "schema":{
+              "type":"array",
+              "items":{
+                "$ref":"#/definitions/Event"
+              }
+            }
+          },
+          "400":{
+            "description":"Invalid input"
+          }
+        }
+      }
+    },
+    "/events/{id}":{
+      "get":{
+        "tags":[
+          "Events"
+        ],
+        "summary":"Get an event by ID",
+        "description":"",
+        "parameters":[
+          {
+            "name":"id",
+            "in":"path",
+            "description":"Event ID",
+            "required":true,
+            "type":"string"
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"OK",
+            "schema":{
+              "$ref":"#/definitions/Event"
+            }
+          },
+          "404":{
+            "description":"Event not found"
+          }
+        }
+      },
+      "put":{
+        "tags":[
+          "Events"
+        ],
+        "summary":"Update an event",
+        "description":"",
+        "parameters":[
+          {
+            "name":"id",
+            "in":"path",
+            "description":"Event ID",
+            "required":true,
+            "type":"string"
+          },
+          {
+            "name":"event",
+            "in":"body",
+            "description":"Event object",
+            "required":true,
+            "schema":{
+              "$ref":"#/definitions/Event"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"Event updated successfully",
+            "schema":{
+              "$ref":"#/definitions/Event"
+            }
+          },
+          "400":{
+            "description":"Invalid input"
+          },
+          "404":{
+            "description":"Event not found"
+          }
+        }
+      },
+      "delete":{
+        "tags":[
+          "Events"
+        ],
+        "summary":"Delete an event",
+        "description":"",
+        "parameters":[
+          {
+            "name":"id",
+            "in":"path",
+            "description":"Event ID",
+            "required":true,
+            "type":"string"
+          }
+        ],
+        "responses":{
+          "204":{
+            "description":"Event deleted successfully"
+          },
+          "404":{
+            "description":"Event not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions":{
+    "Event":{
+      "type":"object",
+      "properties":{
+        "name":{
+          "type":"string",
+          "description":"Name of the event"
+        },
+        "location":{
+          "type":"string",
+          "description":"Location of the event"
+        },
+        "date":{
+          "type":"string",
+          "description":"Date of the event"
+        }
+      },
+      "required":[
+        "name",
+        "location",
+        "date"
+      ]
+    }
+  }
+}

@@ -1,6 +1,8 @@
 const express = require('express');
 const logger = require('morgan');
 require('dotenv').config({ path: `${__dirname}/../.env` });
+const swaggerUi = require('swagger-ui-express');
+const swaggerApiDoc = require('./swagger.json');
 const { sequelize } = require('./models');
 sequelize.sync({ alter: true });
 const config = require('./config/environments');
@@ -16,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/v1/', indexRouter);
 app.use('/v1/events', eventsRouter);
-
+app.use('/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerApiDoc));
 app.listen({ port: config.app.port }, async () => {
   console.info(`listening on port ${config.app.port}`);
 });
