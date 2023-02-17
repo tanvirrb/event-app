@@ -15,3 +15,18 @@ module.exports.createEventValidator = (req, res, next) => {
   }
   next();
 };
+
+module.exports.updateEventValidator = (req, res, next) => {
+  const schema = Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
+    name: Joi.string(),
+    location: Joi.string(),
+    date: Joi.date(),
+  });
+
+  const { error } = schema.validate(req.body);
+  if (error) {
+    const message = validationMessage(error?.details);
+    return res.status(400).json({ error: message });
+  }
+  next();
+};

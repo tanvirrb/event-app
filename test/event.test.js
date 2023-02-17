@@ -55,6 +55,39 @@ describe('Event test suite', () => {
     assert.exists(event.date);
   });
 
+  it('should update an event with id', async () => {
+    const eventData = {
+      name: faker.lorem.words(),
+      location: faker.address.city(),
+      date: faker.date.future(),
+    };
+
+    const newEvent = await createEventForTest(eventData);
+    const [err, res] = await _p(chai.request(server).get(`/v1/events/${newEvent.id}`));
+    if (err) console.error('Update test err', err);
+    const event = res.body.data;
+
+    assert.equal(res.status, 200);
+    assert.equal(event.name, eventData.name);
+    assert.equal(event.location, eventData.location);
+    assert.exists(event.date);
+  });
+
+  it('should delete an event with id', async () => {
+    const eventData = {
+      name: faker.lorem.words(),
+      location: faker.address.city(),
+      date: faker.date.future(),
+    };
+    const newEvent = await createEventForTest(eventData);
+    const [err, res] = await _p(chai.request(server).delete(`/v1/events/${newEvent.id}`));
+    if (err) console.error('Delete test err', err);
+    const event = res.body.data;
+
+    assert.equal(res.status, 200);
+    assert.equal(event, true);
+  });
+
   afterEach(async () => {
     await Promise.all([deleteEvents()]);
   });

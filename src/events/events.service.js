@@ -15,4 +15,12 @@ module.exports = {
       truncate: true,
     });
   },
+
+  updateEventById: async (id, eventData) => {
+    return Event.update(eventData, { where: { id } });
+  },
+
+  deleteEventById: async (id) => {
+    return Event.destroy({ where: { id } });
+  },
 };
