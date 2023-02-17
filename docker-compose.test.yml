@@ -1,0 +1,48 @@
+version: '3.1'
+services:
+  event-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    env_file:
+      - ./.env
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./test:/usr/src/app/test
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+        db-server:
+            condition: service_healthy
+    healthcheck:
+      test: [ "CMD","nc","-z","localhost","3000" ]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+    command: npm run test
+
+  db-server:
+    image: mysql:8.0
+    ports:
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    env_file:
+      - ./.env
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: unless-stopped
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./scripts/init.sql:/data/application/init.sql
+      - database_vol:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+    database_vol:

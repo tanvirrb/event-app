@@ -1,0 +1,13 @@
+.idea
+
+node_modules
+Dockerfile*
+.dockerignore
+.env
+.env.example
+docker-compose.test.yml
+README.md
+.eslintrc.json
+.gitignore
+.git
+.prettierrc.json
