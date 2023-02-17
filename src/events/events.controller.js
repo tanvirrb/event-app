@@ -41,7 +41,8 @@ module.exports.updateEventById = async (req, res) => {
   try {
     const event = await eventsService.updateEventById(req.params.id, req.body);
     if (!event) return res.status(404).json({ error: 'Event not found' });
-    res.status(200).json({ data: event });
+    const updatedEvent = await eventsService.getEventById(req.params.id);
+    res.status(200).json({ data: updatedEvent });
   } catch (err) {
     console.error('Controller updateEventById err', err);
     res.status(500).json({ error: 'Internal server error' });
