@@ -5,7 +5,7 @@ import {toast} from "react-toastify";
 import countries from "../country-list";
 import Select from 'react-select';
 
-const url = `http://localhost:3000/v1/events`;
+const url = process.env.REACT_APP_API_ENDPOINT;
 
 const CreateEvent = () => {
     const nav = useNavigate();

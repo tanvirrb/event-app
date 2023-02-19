@@ -5,7 +5,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import countries from "../country-list";
 
-const url = `http://localhost:3000/v1/events`;
+const url = process.env.REACT_APP_API_ENDPOINT;
 const Events = () => {
     const nav = useNavigate();
     const [eventList, setEventList] = useState([]);

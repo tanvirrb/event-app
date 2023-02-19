@@ -6,7 +6,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import countries from "../country-list";
 import Select from 'react-select';
 
-const url = `http://localhost:3000/v1/events`;
+const url = process.env.REACT_APP_API_ENDPOINT;
 const EditEvent = () => {
     const {id} = useParams();
     const nav = useNavigate();
