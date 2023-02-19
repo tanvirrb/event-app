@@ -1,4 +1,5 @@
 const express = require('express');
+var cors = require('cors');
 const logger = require('morgan');
 require('dotenv').config({ path: `${__dirname}/../.env` });
 const swaggerUi = require('swagger-ui-express');
@@ -11,6 +12,7 @@ const indexRouter = require('./routes');
 const eventsRouter = require('./routes/events');
 
 const app = express();
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(express.json());

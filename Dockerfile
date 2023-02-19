@@ -4,5 +4,5 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm i
 COPY . .
-
-EXPOSE 3000
+RUN cd ./frontend && npm install
+EXPOSE 3000 3001

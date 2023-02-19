@@ -1,5 +1,6 @@
 #IDE configs
 .idea
+frontend/.idea
 # Logs
 logs
 *.log

@@ -8,8 +8,11 @@ services:
       - ./.env
     volumes:
       - ./src:/usr/src/app/src
+      - ./frontend:/usr/src/app/frontend
+      - /usr/src/app/frontend/node_modules
     ports:
       - ${PORT}:${PORT}
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
     restart: unless-stopped
     depends_on:
         db-server:
@@ -19,7 +22,8 @@ services:
       interval: 20s
       timeout: 5s
       retries: 3
-    command: npm run dev
+    command: sh -c "(npm run dev &) && cd ./frontend && npm start"
+
 
   db-server:
     image: mysql:8.0
