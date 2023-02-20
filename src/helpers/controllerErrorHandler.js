@@ -2,6 +2,7 @@ const { HTTP_INTERNAL_SERVER_ERROR } = require('../config/constants');
 
 /**
  * @description any controller error or exception will be caught here and handled
+ * @param controllerFn
  */
 module.exports = function withErrorHandling(controllerFn) {
   return async (req, res, next) => {
