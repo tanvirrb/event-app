@@ -10,6 +10,7 @@ const config = require('./config/environments');
 
 const indexRouter = require('./routes');
 const eventsRouter = require('./routes/events');
+const {HTTP_INTERNAL_SERVER_ERROR} = require("./config/constants");
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/v1/', indexRouter);
 app.use('/v1/events', eventsRouter);
 app.use('/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerApiDoc));
+
+app.use(function (err, req, res) {
+  console.error(err);
+  return res.status(HTTP_INTERNAL_SERVER_ERROR.code).send(HTTP_INTERNAL_SERVER_ERROR.message);
+});
 app.listen({ port: config.app.port }, async () => {
   console.info(`listening on port ${config.app.port}`);
 });
