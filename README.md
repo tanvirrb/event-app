@@ -180,6 +180,7 @@ Request Parameters
 | name      | body        | string | yes     | The name of the event. |
 | location  | body        | string | yes     | The location of the event. |
 | date      | body        | string | yes     | The date of the event. |
+
 Request Body
 ```json
 {
@@ -272,7 +273,7 @@ Sometimes the tests might fail due to the database connection. If that happens, 
 npm run posttest:docker
 ```
 
-build the docker compose for test: 
+Rebuild the docker compose for test: 
 
 ```bash
 npm run test:docker:rebuild
