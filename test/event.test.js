@@ -31,10 +31,10 @@ describe('Event test suite', () => {
     const event = res.body.data;
     if (err) console.error('Create test err', err);
 
-    assert.equal(res.status, 201);
-    assert.equal(event.name, eventData.name);
-    assert.equal(event.location, eventData.location);
-    assert.exists(event.date);
+    assert.equal(res.status, 201, 'status  code should be 201');
+    assert.equal(event.name, eventData.name, 'event name should match');
+    assert.equal(event.location, eventData.location, 'event location should match');
+    assert.exists(event.date, 'event date should exist');
   });
 
   it('should get all events with pagination', async () => {
@@ -51,8 +51,11 @@ describe('Event test suite', () => {
     if (err) console.error('Get all test err', err);
     const events = res.body.data;
 
-    assert.equal(res.status, 200);
-    assert.equal(events.length, 5);
+    assert.equal(res.status, 200, 'status code should be 200');
+    assert.equal(events.length, 5, 'events length should be 5');
+    assert.exists(events[0].name, 'event name should exist');
+    assert.exists(events[0].location, 'event location should exist');
+    assert.exists(events[0].date, 'event date should exist');
   });
 
   it('should get an event with id', async () => {
@@ -68,9 +71,10 @@ describe('Event test suite', () => {
     const event = res.body.data;
 
     assert.equal(res.status, 200);
-    assert.equal(event.name, eventData.name);
-    assert.equal(event.location, eventData.location);
-    assert.exists(event.date);
+    assert.isObject(event, 'event should be an object');
+    assert.equal(event.name, eventData.name, 'event name should match');
+    assert.equal(event.location, eventData.location, 'event location should match');
+    assert.exists(event.date, 'event date should exist');
   });
 
   it('should update an event with id', async () => {
@@ -85,10 +89,11 @@ describe('Event test suite', () => {
     if (err) console.error('Update test err', err);
     const event = res.body.data;
 
-    assert.equal(res.status, 200);
-    assert.equal(event.name, eventData.name);
-    assert.equal(event.location, eventData.location);
-    assert.exists(event.date);
+    assert.equal(res.status, 200, 'status code should be 200');
+    assert.isObject(event, 'event should be an object');
+    assert.equal(event.name, eventData.name, 'event name should match');
+    assert.equal(event.location, eventData.location, 'event location should match');
+    assert.exists(event.date, 'event date should exist');
   });
 
   it('should delete an event with id', async () => {
@@ -102,8 +107,8 @@ describe('Event test suite', () => {
     if (err) console.error('Delete test err', err);
     const event = res.body.data;
 
-    assert.equal(res.status, 200);
-    assert.equal(event, true);
+    assert.equal(res.status, 200, 'status code should be 200');
+    assert.equal(event, true, 'event should be deleted');
   });
 
   afterEach(async () => {
