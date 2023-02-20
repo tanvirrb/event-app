@@ -43,6 +43,12 @@ Change directory to the project root
 cd event-app
 ```
 
+create environment variable file from example file
+
+```bash
+cp .env.example .env
+```
+
 Start the app
 
 ```bash
