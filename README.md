@@ -66,7 +66,9 @@ The app REST API will be available at http://localhost:3000/v1/events
 
 The app frontend will be available at http://localhost:3001
 
-the OpenApi documentation will be available at http://localhost:3000/v1/api-docs
+The OpenApi documentation will be available at http://localhost:3000/v1/api-docs
+
+The Postman collection will be available at my Github gist [here](https://gist.github.com/tanvirrb/ff4928661b79a607bbb8ce4d00c561ad)
 
 ## Troubleshooting
 Sometimes the app might not be available at the above URLs. In that case, you can check the logs of the containers to see what's going on. If any error occurs, try closing the docker compose by pressing `Ctrl + C` or  `Ctrl + Z` or any other key combination that works on your terminal. Then run the clean up command:
