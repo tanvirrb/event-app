@@ -11,6 +11,7 @@ const config = require('./config/environments');
 const indexRouter = require('./routes');
 const eventsRouter = require('./routes/events');
 const globalErrorHandler = require('./helpers/globalErrorHandler');
+const noFoundError = require('./helpers/notFoundError');
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,7 @@ app.use('/v1/', indexRouter);
 app.use('/v1/events', eventsRouter);
 app.use('/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerApiDoc));
 
+app.use(noFoundError);
 app.use(globalErrorHandler);
 app.listen({ port: config.app.port }, async () => {
   console.info(`listening on port ${config.app.port}`);
