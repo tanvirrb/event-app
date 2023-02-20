@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 const eventsController = require('../events/events.controller');
 const { createEventValidator, updateEventValidator } = require('../events/events.validator');
+const withErrorHandler = require('../helpers/controllerErrorHandler');
 
-router.post('/', createEventValidator, eventsController.createEvent);
-router.get('/', eventsController.getEvents);
-router.get('/:id', eventsController.getEventById);
-router.put('/:id', updateEventValidator, eventsController.updateEventById);
-router.delete('/:id', eventsController.deleteEventById);
+router.post('/', createEventValidator, withErrorHandler(eventsController.createEvent));
+router.get('/', withErrorHandler(eventsController.getEvents));
+router.get('/:id', withErrorHandler(eventsController.getEventById));
+router.put('/:id', updateEventValidator, withErrorHandler(eventsController.updateEventById));
+router.delete('/:id', withErrorHandler(eventsController.deleteEventById));
 
 module.exports = router;
