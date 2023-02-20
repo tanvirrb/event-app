@@ -2,7 +2,7 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Event extends Model {
-    static associate(models) {}
+    static associate(models) {} //eslint-disable-line no-unused-vars
   }
   Event.init(
     {
