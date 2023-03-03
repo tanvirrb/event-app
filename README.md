@@ -9,7 +9,6 @@ This is a simple event app built using React JS and Node JS. The app allows user
 * [Sequelize](https://sequelize.org/) - The ORM used
 * [Docker](https://www.docker.com/) - The containerization platform used
 * [Docker Compose](https://docs.docker.com/compose/) - The tool for defining and running multi-container Docker applications
-* [Sequelize](https://sequelize.org/) - The ORM used
 * [Mocha](https://mochajs.org/) - The testing framework used
 * [Chai](https://www.chaijs.com/) - The assertion library used
 * [ChaiHttp](https://www.chaijs.com/plugins/chai-http/) - The HTTP integration testing plugin for Chai
