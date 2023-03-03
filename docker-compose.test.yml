@@ -19,7 +19,7 @@ services:
       interval: 20s
       timeout: 5s
       retries: 3
-    command: npm run test
+    command: npm test
 
   db-server:
     image: mysql:8.0
