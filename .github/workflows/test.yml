@@ -43,7 +43,7 @@ jobs:
           PORT: 3000
           FRONTEND_PORT: 3001
           REACT_APP_API_ENDPOINT: http://localhost:3000/v1/events
-          MYSQL_HOST: db-server
+          MYSQL_HOST: localhost
           MYSQL_DATABASE: events_db
           MYSQL_ROOT_USER: root
           MYSQL_ROOT_PASSWORD: adminroot
