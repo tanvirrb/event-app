@@ -1,0 +1,43 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: events_db
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: admin
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Wait for MySQL to start
+        run: |
+          echo "Waiting for MySQL to start..."
+          until mysql -h 127.0.0.1 -u admin -p admin -e ";" ; do sleep 1 ; done
+          echo "MySQL started"
+
+      - name: Run tests
+        env:
+          DATABASE_URL: mysql://admin:admin@127.0.0.1:3306/events_db
+        run: npm test
