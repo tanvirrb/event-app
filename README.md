@@ -1,3 +1,5 @@
+[![Test](https://github.com/tanvirrb/event-app/actions/workflows/test.yml/badge.svg)](https://github.com/tanvirrb/event-app/actions/workflows/test.yml)
+
 # Event App
 
 This is a simple event app built using React JS and Node JS. The app allows users to create, retrieve, update and delete events. The app is built using the following technologies:
