@@ -34,7 +34,7 @@ jobs:
       - name: Wait for MySQL to start
         run: |
           echo "Waiting for MySQL to start..."
-          until mysql -h 127.0.0.1 -u admin -p admin -e ";" ; do sleep 1 ; done
+          until mysql -h 127.0.0.1 -u admin -padmin -e ";" ; do sleep 1 ; done
           echo "MySQL started"
 
       - name: Run tests
