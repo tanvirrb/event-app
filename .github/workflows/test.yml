@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      mysql:
+      db-server:
         image: mysql:latest
         env:
           MYSQL_ROOT_PASSWORD: root
@@ -39,5 +39,17 @@ jobs:
 
       - name: Run tests
         env:
-          DATABASE_URL: mysql://admin:admin@127.0.0.1:3306/events_db
+          APP_NAME: events-app
+          PORT: 3000
+          FRONTEND_PORT: 3001
+          REACT_APP_API_ENDPOINT: http://localhost:3000/v1/events
+          MYSQL_HOST: db-server
+          MYSQL_DATABASE: events_db
+          MYSQL_ROOT_USER: root
+          MYSQL_ROOT_PASSWORD: adminroot
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: admin
+          MYSQL_PORT: 3306
+          MYSQL_SSL_MODE: false
+          DB_DIALECT: mysql
         run: npm test
